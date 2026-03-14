@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import ASCIIText from './ASCIIText'
 
 export default function Hero() {
   return (
@@ -18,15 +19,27 @@ export default function Hero() {
       />
 
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <motion.h1
-          className="font-heading text-5xl md:text-7xl font-bold mb-6 leading-tight"
-          style={{ color: '#FFFFFF' }}
+        <motion.img
+          src="/SkillsetLAlogo.svg"
+          alt="SkillMatch LA logo"
+          className="mx-auto mb-8 w-32 md:w-40"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        />
+        <motion.div
+          className="relative w-full h-32 md:h-44 mb-6"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
-          Find Your Path to a New Career
-        </motion.h1>
+          <ASCIIText
+            text="Find Your Path to a New Career"
+            textFontSize={80}
+            textColor="#FFFFFF"
+            enableWaves={true}
+          />
+        </motion.div>
 
         <motion.p
           className="text-xl md:text-2xl mb-10 max-w-2xl mx-auto font-body leading-relaxed"
