@@ -5,13 +5,31 @@ import WaveDivider from './components/WaveDivider'
 import InputForm from './components/InputForm'
 import Results from './components/Results'
 import Footer from './components/Footer'
-import { mockResults } from './data/mockData'
 import { refreshScrollTrigger } from './hooks/useScrollTrigger'
 
 function App() {
   const [showResults, setShowResults] = useState(false)
+  const [resultsData, setResultsData] = useState(null)
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async ({ currentJob, dreamJob, skills }) => {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
+    const response = await fetch(`${apiBaseUrl}/api/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        currentJob,
+        skills,
+        targetJob: dreamJob,
+        location: 'Los Angeles, CA',
+      }),
+    })
+
+    const payload = await response.json()
+    if (!response.ok || !payload.success) {
+      throw new Error(payload.error || 'Failed to analyze profile')
+    }
+
+    setResultsData(payload)
     setShowResults(true)
   }
 
@@ -34,7 +52,7 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <Results data={mockResults} />
+            <Results data={resultsData} />
           </motion.div>
         )}
       </AnimatePresence>

@@ -54,7 +54,7 @@ export async function analyzeWithGemini(prompt: string): Promise<AnalysisResult>
   if (!apiKey) throw new Error('GEMINI_API_KEY is not set')
 
   const genAI = new GoogleGenerativeAI(apiKey)
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
 
   const result = await model.generateContent(prompt)
   const rawText = result.response.text()

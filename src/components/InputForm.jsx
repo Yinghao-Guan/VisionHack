@@ -28,16 +28,18 @@ export default function InputForm({ onSubmit }) {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!currentJob || !dreamJob || skills.length === 0) return
 
     setLoading(true)
-    // Fake loading to simulate API call
-    setTimeout(() => {
+    try {
+      await onSubmit({ currentJob, dreamJob, skills })
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Unable to generate roadmap')
+    } finally {
       setLoading(false)
-      onSubmit({ currentJob, dreamJob, skills })
-    }, 1500)
+    }
   }
 
   return (
