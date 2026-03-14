@@ -40,11 +40,6 @@ Temporary Items
 .idea/
 *.iml
 
-# Node
-node_modules/
-dist/
-.env
-.env.local
-
-# Vite
-*.local
+# vide coding
+CLAUDE.md
+AGENTS.md
