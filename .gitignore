@@ -39,3 +39,7 @@ Temporary Items
 # jetbrains
 .idea/
 *.iml
+
+# vide coding
+CLAUDE.md
+AGENTS.md
