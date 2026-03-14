@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/* ---- Theme Tokens ---- */
+@theme {
+  --color-orange: #E8734A;
+  --color-pink: #D45A8E;
+  --color-purple: #7B5EA7;
+  --color-dark-purple: #4A3560;
+  --color-cream: #FFF8F0;
+  --color-sand: #F5E6D3;
+  --color-dark-text: #2D1B38;
+  --color-light-text: #6B5A7A;
+
+  --font-heading: "Playfair Display", serif;
+  --font-body: "DM Sans", sans-serif;
+}
+
+/* ---- Base Styles ---- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-dark-text);
+  background-color: var(--color-cream);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Animated Gradient (Hero) ---- */
+.hero-gradient {
+  background: linear-gradient(
+    -45deg,
+    #E8734A,
+    #D45A8E,
+    #7B5EA7,
+    #4A3560,
+    #D45A8E,
+    #E8734A
+  );
+  background-size: 300% 300%;
+  animation: gradientFlow 12s ease infinite;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---- Glassmorphism Card ---- */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(74, 53, 96, 0.08);
+}
+
+/* ---- Floating Blobs ---- */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  animation: blobFloat 8s ease-in-out infinite;
+}
+
+@keyframes blobFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* ---- Timeline Line ---- */
+.timeline-line {
+  width: 3px;
+  background: linear-gradient(to bottom, #E8734A, #D45A8E, #7B5EA7);
+}
+
+/* ---- Skill Tag ---- */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+/* ---- Match Bar ---- */
+.match-bar-bg {
+  background: var(--color-sand);
+  border-radius: 9999px;
+  height: 0.5rem;
+  overflow: hidden;
+}
+
+.match-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #E8734A, #D45A8E);
+}
