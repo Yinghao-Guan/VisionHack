@@ -51,15 +51,6 @@ export default function Hero() {
           />
         </motion.div>
 
-        <motion.p
-          className="text-lg md:text-xl mb-10 max-w-2xl mx-auto font-body leading-relaxed text-white/50"
-          initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-        >
-          Bridge the gap between where you are and where you want to be.
-        </motion.p>
-
         <motion.a
           href="#input-form"
           className="inline-block px-8 py-3.5 font-semibold text-base rounded-lg
