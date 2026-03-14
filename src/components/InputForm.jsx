@@ -4,12 +4,11 @@ import SectionWrapper from './SectionWrapper'
 import BlurText from './BlurText'
 import DarkVeil from './DarkVeil'
 
-export default function InputForm({ onSubmit }) {
+export default function InputForm({ onSubmit, loading }) {
   const [currentJob, setCurrentJob] = useState('')
   const [dreamJob, setDreamJob] = useState('')
   const [skills, setSkills] = useState([])
   const [skillInput, setSkillInput] = useState('')
-  const [loading, setLoading] = useState(false)
 
   const addSkill = () => {
     const trimmed = skillInput.trim()
@@ -34,11 +33,7 @@ export default function InputForm({ onSubmit }) {
     e.preventDefault()
     if (!currentJob || !dreamJob || skills.length === 0) return
 
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-      onSubmit({ currentJob, dreamJob, skills })
-    }, 1500)
+    onSubmit({ currentJob, dreamJob, skills })
   }
 
   return (
