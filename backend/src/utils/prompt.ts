@@ -12,6 +12,8 @@ interface RawJob {
   description: string
   requiredSkills: string[]
   applyLink: string
+  postedAt: string
+  salary: string
 }
 
 export function buildPrompt(profile: UserProfile, jobs: RawJob[]): string {
@@ -24,6 +26,8 @@ export function buildPrompt(profile: UserProfile, jobs: RawJob[]): string {
   Title: ${job.title}
   Company: ${job.company}
   Location: ${job.location}
+  Posted: ${job.postedAt}
+  Salary: ${job.salary}
   Required Skills: ${skills}
   Description Excerpt: ${job.description}
   Apply Link: ${job.applyLink}`
@@ -45,33 +49,62 @@ ${jobsText}
 Analyze the gap between the user's current skills and what the job listings require. Return a JSON object with EXACTLY this structure — no markdown, no explanation, just raw JSON:
 
 {
-  "matchedJobs": [
+  "skillGap": {
+    "need": [
+      {
+        "name": "string",
+        "priority": "High | Medium | Low",
+        "description": "string"
+      }
+    ]
+  },
+  "roadmap": {
+    "totalTime": "string",
+    "steps": [
+      {
+        "id": 1,
+        "title": "string",
+        "duration": "string",
+        "description": "string",
+        "milestone": "string"
+      }
+    ]
+  },
+  "resources": [
     {
+      "skill": "string",
+      "items": [
+        {
+          "name": "string",
+          "type": "Free Online Course | Online Course | Community College | Certificate Program | In-Person Workshop | Free Software | Practice Dataset",
+          "availability": "string",
+          "url": "string"
+        }
+      ]
+    }
+  ],
+  "jobPostings": [
+    {
+      "id": 1,
       "title": "string",
       "company": "string",
       "location": "string",
-      "matchScore": number 0-100,
-      "missingSkills": ["string"],
-      "link": "string"
-    }
-  ],
-  "skillGaps": ["deduplicated list of all missing skills across top jobs"],
-  "roadmap": [
-    {
-      "week": 1,
-      "focus": "string",
-      "resources": ["platform name and course name"]
+      "salary": "string",
+      "posted": "string",
+      "matchPercent": number 0-100,
+      "skills": ["string"]
     }
   ]
 }
 
 ## Rules
-1. Return 3-5 matched jobs from the listings. Pick the most relevant.
-2. matchScore: 0-100 based on how many required skills the user already has.
-3. missingSkills: ONLY skills the user does NOT have. User's skills: ${profile.skills.join(', ')}.
-4. skillGaps: deduplicated union of all missingSkills, sorted by frequency.
-5. roadmap: 4-8 weeks, building progressively from foundations to job-ready.
-6. ALL resources must be FREE and accessible in LA. Prefer: freeCodeCamp, Khan Academy, Coursera (audit), edX (audit), Google Career Certificates, YouTube, LA Public Library (lapl.org — free LinkedIn Learning with library card), Workforce Development Board of LA County, LATTC, LACCD.
-7. Resources must be specific: include platform name and course/page name.
-8. Do NOT include any text outside the JSON. Do NOT use markdown code fences.`
+1. Return 3-5 jobPostings, only from the listings above. Pick most relevant.
+2. matchPercent: 0-100 based on how many required skills the user already has.
+3. skillGap.need: ONLY skills the user does NOT have. User's skills: ${profile.skills.join(', ')}.
+4. skillGap.need.priority: High for urgent/frequent requirements, Medium for common, Low for optional.
+5. roadmap.steps: 4-8 progressive steps from foundations to job-ready.
+6. resources: group by skill. Include 1-3 items per skill. ALL resources should be free or free-to-audit and accessible in LA.
+7. Resource URLs should be real URLs when possible; otherwise use a best official homepage URL.
+8. jobPostings.skills: include the most relevant required skills for each posting.
+9. Do NOT include any text outside the JSON. Do NOT use markdown code fences.`
 }
