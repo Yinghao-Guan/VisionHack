@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SectionWrapper from './SectionWrapper'
 import BlurText from './BlurText'
+import DarkVeil from './DarkVeil'
 
 export default function InputForm({ onSubmit }) {
   const [currentJob, setCurrentJob] = useState('')
@@ -41,13 +42,16 @@ export default function InputForm({ onSubmit }) {
   }
 
   return (
-    <SectionWrapper id="input-form" className="bg-sand relative overflow-hidden -mt-32 pt-8">
-      {/* Background glow orbs */}
-      <div className="blob w-72 h-72 bg-indigo-500/[0.06] -top-20 -left-20" />
-      <div className="blob w-96 h-96 bg-violet-500/[0.06] -bottom-32 -right-32" style={{ animationDelay: '3s' }} />
-      <div className="blob w-64 h-64 bg-indigo-400/[0.04] top-1/2 left-1/3" style={{ animationDelay: '5s' }} />
+    <SectionWrapper id="input-form" className="relative overflow-hidden min-h-screen flex items-center">
+      {/* DarkVeil Background */}
+      <div className="absolute inset-0">
+        <DarkVeil />
+      </div>
+      {/* Top gradient to blend seamlessly with Hero section */}
+      <div className="absolute top-0 left-0 right-0 h-40 z-[1] pointer-events-none"
+           style={{ background: 'linear-gradient(to bottom, #111827, transparent)' }} />
 
-      <div className="relative z-10 max-w-2xl mx-auto">
+      <div className="relative z-10 max-w-3xl mx-auto w-full">
         <BlurText
           text="Tell Us About Yourself"
           animateBy="words"
