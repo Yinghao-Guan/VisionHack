@@ -25,16 +25,6 @@ export default function Hero() {
       />
 
       <div className="relative z-20 text-center px-4 max-w-4xl mx-auto w-full">
-        {/* SVG Logo */}
-        <motion.img
-          src="/SkillsetLAlogo.svg"
-          alt="SkillSet LA"
-          className="w-20 md:w-24 mx-auto mb-6"
-          initial={{ opacity: 0, scale: 0.8, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        />
-
         <motion.span
           className="inline-block px-4 py-1.5 mb-8 text-sm font-medium rounded-full border border-white/15 bg-white/5 text-white/70 backdrop-blur-sm"
           initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
@@ -74,12 +64,12 @@ export default function Hero() {
           href="#input-form"
           className="inline-block px-8 py-3.5 font-semibold text-base rounded-lg
                      transition-all duration-300 cursor-pointer
-                     bg-indigo-500/80 text-white hover:bg-indigo-500 backdrop-blur-sm
-                     border border-indigo-400/30 glow-indigo"
+                     bg-white/10 text-white backdrop-blur-md
+                     border border-white/20 hover:bg-white/20 hover:border-white/30"
           initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
-          whileHover={{ scale: 1.05, boxShadow: '0 0 50px rgba(99, 102, 241, 0.3)' }}
+          whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(255, 255, 255, 0.15)' }}
           whileTap={{ scale: 0.97 }}
         >
           Get Started →

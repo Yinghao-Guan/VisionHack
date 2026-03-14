@@ -95,8 +95,9 @@ export default function InputForm({ onSubmit }) {
               <motion.button
                 type="button"
                 onClick={addSkill}
-                className="px-4 py-3 bg-indigo-500/80 text-white rounded-xl font-semibold hover:bg-indigo-500
-                           transition-colors duration-200 border border-indigo-400/30"
+                className="px-4 py-3 bg-white/10 text-white rounded-xl font-semibold
+                           backdrop-blur-md border border-white/20 hover:bg-white/20 hover:border-white/30
+                           transition-all duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -151,10 +152,11 @@ export default function InputForm({ onSubmit }) {
             type="submit"
             disabled={loading || !currentJob || !dreamJob || skills.length === 0}
             className="w-full py-4 rounded-xl font-semibold text-lg text-white
-                       bg-gradient-to-r from-indigo-600 via-indigo-500 to-violet-500
-                       hover:shadow-lg disabled:opacity-30 disabled:cursor-not-allowed
-                       transition-all duration-300 border border-indigo-400/20 glow-indigo"
-            whileHover={{ scale: 1.02, boxShadow: '0 0 50px rgba(99, 102, 241, 0.25)' }}
+                       bg-white/10 backdrop-blur-md
+                       border border-white/20 hover:bg-white/20 hover:border-white/30
+                       disabled:opacity-30 disabled:cursor-not-allowed
+                       transition-all duration-300"
+            whileHover={{ scale: 1.02, boxShadow: '0 0 40px rgba(255, 255, 255, 0.15)' }}
             whileTap={{ scale: 0.98 }}
           >
             {loading ? (
