@@ -24,6 +24,17 @@ app.post('/api/analyze', async (c) => {
 
     const prompt = buildPrompt({ currentJob, skills, targetJob, location: resolvedLocation }, jobs)
     const analysis = await analyzeWithGemini(prompt)
+    const normalizedJobPostings = (analysis.jobPostings ?? []).map((job: any, index: number) => ({
+      id: Number.isFinite(job.id) ? job.id : index + 1,
+      title: job.title ?? 'Unknown role',
+      company: job.company ?? 'Unknown company',
+      location: job.location ?? resolvedLocation,
+      salary: job.salary ?? 'Salary not listed',
+      posted: job.posted ?? 'Recently posted',
+      matchPercent: clampPercent(job.matchPercent),
+      skills: Array.isArray(job.skills) ? job.skills : [],
+    }))
+    const fallbackJobPostings = buildFallbackJobPostings(jobs, skills)
 
     return c.json({
       success: true,
@@ -63,16 +74,7 @@ app.post('/api/analyze', async (c) => {
             }))
           : [],
       })),
-      jobPostings: (analysis.jobPostings ?? []).map((job: any, index: number) => ({
-        id: Number.isFinite(job.id) ? job.id : index + 1,
-        title: job.title ?? 'Unknown role',
-        company: job.company ?? 'Unknown company',
-        location: job.location ?? resolvedLocation,
-        salary: job.salary ?? 'Salary not listed',
-        posted: job.posted ?? 'Recently posted',
-        matchPercent: clampPercent(job.matchPercent),
-        skills: Array.isArray(job.skills) ? job.skills : [],
-      })),
+      jobPostings: normalizedJobPostings.length > 0 ? normalizedJobPostings : fallbackJobPostings,
     })
   } catch (err) {
     console.error('[/api/analyze]', err)
@@ -91,6 +93,38 @@ function clampPercent(value: unknown): number {
   const num = Number(value)
   if (!Number.isFinite(num)) return 0
   return Math.min(100, Math.max(0, Math.round(num)))
+}
+
+interface JobSource {
+  title: string
+  company: string
+  location: string
+  requiredSkills: string[]
+  postedAt: string
+  salary: string
+}
+
+function buildFallbackJobPostings(jobs: JobSource[], userSkills: string[]) {
+  const normalizedUserSkills = new Set(userSkills.map((skill) => String(skill).trim().toLowerCase()))
+
+  return jobs.slice(0, 5).map((job, index) => {
+    const jobSkills = Array.isArray(job.requiredSkills) ? job.requiredSkills.filter(Boolean).slice(0, 6) : []
+    const matched = jobSkills.filter((skill) => normalizedUserSkills.has(String(skill).trim().toLowerCase())).length
+    const matchPercent = jobSkills.length > 0
+      ? Math.round((matched / jobSkills.length) * 100)
+      : Math.max(40, 70 - index * 5)
+
+    return {
+      id: index + 1,
+      title: job.title || 'Unknown role',
+      company: job.company || 'Unknown company',
+      location: job.location || 'Los Angeles, CA',
+      salary: job.salary || 'Salary not listed',
+      posted: job.postedAt || 'Recently posted',
+      matchPercent: clampPercent(matchPercent),
+      skills: jobSkills,
+    }
+  })
 }
 
 async function getJobsWithFallback(targetJob: string, location: string) {
