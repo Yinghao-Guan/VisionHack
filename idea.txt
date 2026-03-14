@@ -1,0 +1,27 @@
+SkillMatch LA — An AI-powered job-to-skills roadmap builder.
+
+Here's the brutal simplicity:
+
+User enters: Their current job/skills + what they want to do
+AI analyzes: Real LA job openings (pull from a free job API) and finds the gap
+AI generates: A step-by-step learning roadmap ("You know Excel, jobs want Python. Here's how to learn it in 6 weeks. Start here → here → here")
+App lists: Free resources in LA (library programs, YouTube channels, free courses) for each skill
+Result: They see 3-5 actual job postings they're close to qualifying for + a clear path to get there
+
+Why this wins:
+Solves "Use" pillar: Helps underserved people actually use tech/learning for job outcomes (real problem in LA)
+4-hour doable: Simple form → Gemini API call → job API lookup → return roadmap + resources
+AI isn't gimmicky: The LLM actually does the hard work (analyzing gaps, explaining in plain language, personalizing)
+Demo is visceral: "Enter your background → boom, here's your job target and how to get there" hits different than abstract dashboards
+
+Tech stack (minimal):
+Frontend: React or vanilla JS (20 mins to build)
+Backend: Node.js + Gemini API + JSearch API (free tier)
+Deploy: Vercel (free, instant)
+
+What I need to know:
+Does your team have someone comfortable with backend/APIs?
+Or are you all frontend-focused?
+Any preference for tech stack?
+
+If you have backend capacity, this is 100% doable. If not, we pivot to a frontend-only version (still works, just hardcodes example scenarios).

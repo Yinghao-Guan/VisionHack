@@ -40,6 +40,8 @@ Temporary Items
 .idea/
 *.iml
 
+.env
+
 # vide coding
 CLAUDE.md
 AGENTS.mdnode_modules/
