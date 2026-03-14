@@ -24,22 +24,22 @@ function App() {
   return (
     <div className="min-h-screen bg-cream">
       <Hero />
-      <WaveDivider fillTop="#4A3560" fillBottom="#F5E6D3" />
+      <WaveDivider fillTop="#0f172a" fillBottom="#111827" />
       <InputForm onSubmit={handleFormSubmit} />
 
       <AnimatePresence>
         {showResults && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <Results data={mockResults} />
           </motion.div>
         )}
       </AnimatePresence>
 
-      <WaveDivider fillTop={showResults ? '#F5E6D3' : '#F5E6D3'} fillBottom="#4A3560" />
+      <WaveDivider fillTop={showResults ? '#0a0a0f' : '#111827'} fillBottom="#0f172a" />
       <Footer />
     </div>
   )

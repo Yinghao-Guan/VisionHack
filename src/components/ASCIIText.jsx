@@ -60,6 +60,8 @@ class AsciiFilter {
     this.domElement.style.left = '0';
     this.domElement.style.width = '100%';
     this.domElement.style.height = '100%';
+    this.domElement.style.overflow = 'visible';
+    this.domElement.style.pointerEvents = 'none';
 
     this.pre = document.createElement('pre');
     this.domElement.appendChild(this.pre);
@@ -491,12 +493,11 @@ export default function ASCIIText({
       style={{
         position: 'absolute',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        overflow: 'visible'
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&display=swap');
-
         .ascii-text-container canvas {
           position: absolute;
           left: 0;
@@ -521,7 +522,7 @@ export default function ASCIIText({
           position: absolute;
           left: 0;
           top: 0;
-          background-image: radial-gradient(circle, #ff6188 0%, #fc9867 50%, #ffd866 100%);
+          background-image: radial-gradient(circle, #6366f1 0%, #818cf8 50%, #a78bfa 100%);
           background-attachment: fixed;
           -webkit-text-fill-color: transparent;
           -webkit-background-clip: text;

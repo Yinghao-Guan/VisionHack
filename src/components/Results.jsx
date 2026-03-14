@@ -7,9 +7,9 @@ import WaveDivider from './WaveDivider'
 export default function Results({ data }) {
   return (
     <div>
-      <WaveDivider fillTop="#F5E6D3" fillBottom="#FFF8F0" />
+      <WaveDivider fillTop="#111827" fillBottom="#0a0a0f" />
       <SkillGap data={data.skillGap} />
-      <WaveDivider fillTop="#FFF8F0" fillBottom="#F5E6D3" />
+      <WaveDivider fillTop="#0a0a0f" fillBottom="#111827" />
       <Roadmap
         data={{
           ...data.roadmap,
@@ -17,9 +17,9 @@ export default function Results({ data }) {
           dreamRole: data.dreamRole,
         }}
       />
-      <WaveDivider fillTop="#F5E6D3" fillBottom="#FFF8F0" />
+      <WaveDivider fillTop="#111827" fillBottom="#0a0a0f" />
       <Resources data={data.resources} />
-      <WaveDivider fillTop="#FFF8F0" fillBottom="#F5E6D3" />
+      <WaveDivider fillTop="#0a0a0f" fillBottom="#111827" />
       <JobPostings data={data.jobPostings} />
     </div>
   )
