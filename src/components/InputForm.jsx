@@ -29,11 +29,15 @@ export default function InputForm({ onSubmit, loading }) {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!currentJob || !dreamJob || skills.length === 0) return
 
-    onSubmit({ currentJob, dreamJob, skills })
+    try {
+      await onSubmit({ currentJob, dreamJob, skills })
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Unable to generate roadmap')
+    }
   }
 
   return (

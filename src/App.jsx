@@ -4,7 +4,6 @@ import Hero from './components/Hero'
 import InputForm from './components/InputForm'
 import AnalysisProgress from './components/AnalysisProgress'
 import Results from './components/Results'
-import { mockResults } from './data/mockData'
 import { refreshScrollTrigger } from './hooks/useScrollTrigger'
 
 const stages = [
@@ -15,12 +14,14 @@ const stages = [
 
 function App() {
   const [showResults, setShowResults] = useState(false)
+  const [resultsData, setResultsData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState(0)
   const [stageMessage, setStageMessage] = useState('')
   const progressRef = useRef(null)
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async ({ currentJob, dreamJob, skills }) => {
+    setShowResults(false)
     setLoading(true)
     setProgress(stages[0].progress)
     setStageMessage(stages[0].message)
@@ -30,20 +31,41 @@ function App() {
       progressRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }, 100)
 
-    setTimeout(() => {
+    const stageTwoTimer = setTimeout(() => {
       setProgress(stages[1].progress)
       setStageMessage(stages[1].message)
     }, 800)
 
-    setTimeout(() => {
+    const stageThreeTimer = setTimeout(() => {
       setProgress(stages[2].progress)
       setStageMessage(stages[2].message)
     }, 1600)
 
-    setTimeout(() => {
-      setLoading(false)
+    try {
+      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
+      const response = await fetch(`${apiBaseUrl}/api/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          currentJob,
+          skills,
+          targetJob: dreamJob,
+          location: 'Los Angeles, CA',
+        }),
+      })
+
+      const payload = await response.json()
+      if (!response.ok || !payload.success) {
+        throw new Error(payload.error || 'Failed to analyze profile')
+      }
+
+      setResultsData(payload)
       setShowResults(true)
-    }, 2400)
+    } finally {
+      clearTimeout(stageTwoTimer)
+      clearTimeout(stageThreeTimer)
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -77,7 +99,7 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            <Results data={mockResults} />
+            <Results data={resultsData} />
           </motion.div>
         )}
       </AnimatePresence>
