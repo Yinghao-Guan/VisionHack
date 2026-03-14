@@ -1,16 +1,33 @@
-# React + Vite
+# skillset LA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+an AI-powered career roadmap builder for the Los Angeles area.
 
-Currently, two official plugins are available:
+## what it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+a lot of people want to break into tech but don't know where to start. skillset LA takes your current skills and your dream job, then uses AI to build a personalized step-by-step learning plan -- complete with free local resources and real LA job postings you could qualify for.
 
-## React Compiler
+## how it works
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. you enter your current job, skills, and the job you want
+2. AI analyzes the gap between where you are and where you want to be
+3. you get a clear roadmap with timelines, free resources, and matching job listings
 
-## Expanding the ESLint configuration
+## built with
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React + Vite
+- Tailwind CSS, Framer Motion, GSAP
+- Hono (backend)
+- Google Gemini API
+
+## running it
+
+```bash
+# frontend
+npm install
+npm run dev
+
+# backend
+cd backend
+npm install
+npm run dev
+```
