@@ -1,16 +1,16 @@
 export const colors = {
-  orange: '#E8734A',
-  pink: '#D45A8E',
-  purple: '#7B5EA7',
-  darkPurple: '#4A3560',
-  cream: '#FFF8F0',
-  sand: '#F5E6D3',
+  orange: '#6366f1',
+  pink: '#818cf8',
+  purple: '#a78bfa',
+  darkPurple: '#0f172a',
+  cream: '#0a0a0f',
+  sand: '#111827',
   white: '#FFFFFF',
-  darkText: '#2D1B38',
-  lightText: '#6B5A7A',
+  darkText: '#f1f5f9',
+  lightText: '#94a3b8',
 }
 
 export const fonts = {
-  heading: '"Playfair Display", serif',
-  body: '"DM Sans", sans-serif',
+  heading: '"Inter", system-ui, sans-serif',
+  body: '"Inter", system-ui, sans-serif',
 }

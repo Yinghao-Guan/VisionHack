@@ -1,23 +1,24 @@
 @import "tailwindcss";
 
-/* ---- Theme Tokens ---- */
+/* ---- Theme Tokens (Dark) ---- */
 @theme {
-  --color-orange: #E8734A;
-  --color-pink: #D45A8E;
-  --color-purple: #7B5EA7;
-  --color-dark-purple: #4A3560;
-  --color-cream: #FFF8F0;
-  --color-sand: #F5E6D3;
-  --color-dark-text: #2D1B38;
-  --color-light-text: #6B5A7A;
+  --color-orange: #6366f1;
+  --color-pink: #818cf8;
+  --color-purple: #a78bfa;
+  --color-dark-purple: #0f172a;
+  --color-cream: #0a0a0f;
+  --color-sand: #111827;
+  --color-dark-text: #f1f5f9;
+  --color-light-text: #94a3b8;
 
-  --font-heading: "Playfair Display", serif;
-  --font-body: "DM Sans", sans-serif;
+  --font-heading: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
 }
 
 /* ---- Base Styles ---- */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
 }
 
 body {
@@ -33,12 +34,12 @@ body {
 .hero-gradient {
   background: linear-gradient(
     -45deg,
-    #E8734A,
-    #D45A8E,
-    #7B5EA7,
-    #4A3560,
-    #D45A8E,
-    #E8734A
+    #0a0a0f,
+    #111827,
+    #1e1b4b,
+    #0f172a,
+    #1e1b4b,
+    #111827
   );
   background-size: 300% 300%;
   animation: gradientFlow 12s ease infinite;
@@ -50,22 +51,22 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ---- Glassmorphism Card ---- */
+/* ---- Glassmorphism Card (Dark) ---- */
 .glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.25rem;
-  box-shadow: 0 8px 32px rgba(74, 53, 96, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* ---- Floating Blobs ---- */
 .blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.3;
+  filter: blur(80px);
+  opacity: 0.15;
   animation: blobFloat 8s ease-in-out infinite;
 }
 
@@ -78,7 +79,7 @@ body {
 /* ---- Timeline Line ---- */
 .timeline-line {
   width: 3px;
-  background: linear-gradient(to bottom, #E8734A, #D45A8E, #7B5EA7);
+  background: linear-gradient(to bottom, #6366f1, #818cf8, #a78bfa);
 }
 
 /* ---- Skill Tag ---- */
@@ -95,7 +96,7 @@ body {
 
 /* ---- Match Bar ---- */
 .match-bar-bg {
-  background: var(--color-sand);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 9999px;
   height: 0.5rem;
   overflow: hidden;
@@ -104,5 +105,10 @@ body {
 .match-bar-fill {
   height: 100%;
   border-radius: 9999px;
-  background: linear-gradient(90deg, #E8734A, #D45A8E);
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+}
+
+/* ---- Glow utility ---- */
+.glow-indigo {
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.15), 0 0 80px rgba(99, 102, 241, 0.05);
 }

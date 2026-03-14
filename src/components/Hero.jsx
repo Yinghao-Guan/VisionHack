@@ -1,69 +1,78 @@
 import { motion } from 'framer-motion'
 import ASCIIText from './ASCIIText'
+import ColorBends from './ColorBends'
 
 export default function Hero() {
   return (
-    <section className="hero-gradient relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Floating blobs */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-40">
+      {/* ColorBends background */}
+      <div className="absolute inset-0">
+        <ColorBends
+          speed={0.1}
+          noise={0}
+          mouseInfluence={0.4}
+          transparent={false}
+        />
+      </div>
+
+      {/* Bottom fade — blends hero into next section's bg color */}
       <div
-        className="blob w-72 h-72 bg-orange top-[10%] left-[10%]"
-        style={{ animationDelay: '0s' }}
-      />
-      <div
-        className="blob w-96 h-96 bg-pink top-[50%] right-[5%]"
-        style={{ animationDelay: '2s' }}
-      />
-      <div
-        className="blob w-64 h-64 bg-purple bottom-[15%] left-[30%]"
-        style={{ animationDelay: '4s' }}
+        className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none"
+        style={{
+          height: '60%',
+          background: 'linear-gradient(to bottom, transparent 0%, rgba(17,24,39,0.15) 30%, rgba(17,24,39,0.5) 55%, rgba(17,24,39,0.85) 75%, #111827 100%)',
+        }}
       />
 
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <motion.img
-          src="/SkillsetLAlogo.svg"
-          alt="SkillMatch LA logo"
-          className="mx-auto mb-8 w-32 md:w-40"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        />
+      <div className="relative z-20 text-center px-4 max-w-4xl mx-auto w-full">
+        <motion.span
+          className="inline-block px-4 py-1.5 mb-8 text-sm font-medium rounded-full border border-white/15 bg-white/5 text-white/70 backdrop-blur-sm"
+          initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
+        >
+          AI-Powered Career Roadmaps
+        </motion.span>
+
         <motion.div
-          className="relative w-full h-32 md:h-44 mb-6"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="relative w-full h-40 md:h-56 mb-6"
+          style={{ overflow: 'visible' }}
+          initial={{ opacity: 0, scale: 0.9, filter: 'blur(12px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
         >
           <ASCIIText
-            text="Find Your Path to a New Career"
-            textFontSize={80}
+            text="SkillSet LA"
+            asciiFontSize={5}
+            textFontSize={250}
             textColor="#FFFFFF"
+            planeBaseHeight={10}
             enableWaves={true}
           />
         </motion.div>
 
         <motion.p
-          className="text-xl md:text-2xl mb-10 max-w-2xl mx-auto font-body leading-relaxed"
-          style={{ color: 'rgba(255, 255, 255, 0.88)' }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          className="text-lg md:text-xl mb-10 max-w-2xl mx-auto font-body leading-relaxed text-white/50"
+          initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
         >
-          An AI-powered roadmap builder helping Los Angeles residents bridge the
-          gap between where they are and where they want to be.
+          Bridge the gap between where you are and where you want to be.
         </motion.p>
 
         <motion.a
           href="#input-form"
-          className="inline-block px-8 py-4 font-semibold text-lg rounded-full
-                     shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer"
-          style={{ backgroundColor: '#FFFFFF', color: '#4A3560' }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          whileHover={{ scale: 1.05 }}
+          className="inline-block px-8 py-3.5 font-semibold text-base rounded-lg
+                     transition-all duration-300 cursor-pointer
+                     bg-white/10 text-white backdrop-blur-md
+                     border border-white/20 hover:bg-white/20 hover:border-white/30"
+          initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+          whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(255, 255, 255, 0.15)' }}
           whileTap={{ scale: 0.97 }}
         >
-          Start Your Journey
+          Get Started →
         </motion.a>
       </div>
     </section>
