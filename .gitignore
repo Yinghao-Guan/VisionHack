@@ -39,3 +39,12 @@ Temporary Items
 # jetbrains
 .idea/
 *.iml
+
+# Node
+node_modules/
+dist/
+.env
+.env.local
+
+# Vite
+*.local
