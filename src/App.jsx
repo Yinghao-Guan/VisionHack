@@ -4,7 +4,6 @@ import Hero from './components/Hero'
 import WaveDivider from './components/WaveDivider'
 import InputForm from './components/InputForm'
 import Results from './components/Results'
-import Footer from './components/Footer'
 import { refreshScrollTrigger } from './hooks/useScrollTrigger'
 
 function App() {
@@ -42,7 +41,6 @@ function App() {
   return (
     <div className="min-h-screen bg-cream">
       <Hero />
-      <WaveDivider fillTop="#0f172a" fillBottom="#111827" />
       <InputForm onSubmit={handleFormSubmit} />
 
       <AnimatePresence>
@@ -56,9 +54,6 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <WaveDivider fillTop={showResults ? '#0a0a0f' : '#111827'} fillBottom="#0f172a" />
-      <Footer />
     </div>
   )
 }
