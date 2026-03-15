@@ -26,36 +26,6 @@ export default function Roadmap({ data }) {
           },
         }
       )
-
-      const cards = sectionRef.current.querySelectorAll('.roadmap-card')
-      cards.forEach((card, i) => {
-        gsap.from(card, {
-          opacity: 0,
-          x: i % 2 === 0 ? -50 : 50,
-          filter: 'blur(6px)',
-          duration: 0.6,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-        })
-      })
-
-      const nodes = sectionRef.current.querySelectorAll('.roadmap-node')
-      nodes.forEach((node) => {
-        gsap.from(node, {
-          scale: 0,
-          duration: 0.4,
-          ease: 'back.out(1.7)',
-          scrollTrigger: {
-            trigger: node,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-        })
-      })
     }, sectionRef)
 
     return () => ctx.revert()
@@ -121,20 +91,30 @@ export default function Roadmap({ data }) {
                   }`}
                 >
                   {/* Node */}
-                  <div className="roadmap-node absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-sand shadow-lg flex items-center justify-center z-10 border-[3px] border-indigo-500 glow-indigo">
+                  <motion.div
+                    className="absolute left-6 md:left-1/2 -translate-x-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-sand shadow-lg flex items-center justify-center z-10 border-[3px] border-indigo-500 glow-indigo"
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    transition={{ duration: 0.4, ease: [0.34, 1.56, 0.64, 1], delay: i * 0.05 }}
+                  >
                     <span className="font-heading font-bold text-indigo-400 text-sm md:text-base">
                       {step.id}
                     </span>
-                  </div>
+                  </motion.div>
 
                   {/* Card */}
                   <div
-                    className={`roadmap-card ml-16 md:ml-0 md:w-[calc(50%-2.5rem)] ${
+                    className={`ml-16 md:ml-0 md:w-[calc(50%-2.5rem)] ${
                       isLeft ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'
                     }`}
                   >
                     <motion.div
                       className="glass-card p-6 hover:border-white/15 hover:border-indigo-500/20 transition-all duration-300"
+                      initial={{ opacity: 0, x: isLeft ? -50 : 50, filter: 'blur(6px)' }}
+                      whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                      viewport={{ once: true, amount: 0.1 }}
+                      transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.05 }}
                       whileHover={{ y: -4, scale: 1.01, boxShadow: '0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.08)' }}
                     >
                       <div

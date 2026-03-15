@@ -15,7 +15,7 @@ function MatchBar({ percent }) {
           className="match-bar-fill"
           initial={{ width: 0 }}
           whileInView={{ width: `${percent}%` }}
-          viewport={{ once: true, margin: '-30px' }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
         />
       </div>
@@ -52,7 +52,7 @@ export default function JobPostings({ data }) {
               className="gsap-fade-up glass-card p-6 hover:border-white/15 hover:border-indigo-500/20 transition-all duration-300"
               initial={{ opacity: 0, y: 30, filter: 'blur(6px)' }}
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true, margin: '-30px' }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
               whileHover={{ y: -4, scale: 1.01, boxShadow: '0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.08)' }}
             >
