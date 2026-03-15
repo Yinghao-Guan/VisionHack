@@ -59,13 +59,22 @@ function App() {
         })
       }
 
-      const payload = await response.json()
+      const text = await response.text()
+      let payload
+      try {
+        payload = JSON.parse(text)
+      } catch {
+        throw new Error('Something went wrong on the server. Please try again.')
+      }
+
       if (!response.ok || !payload.success) {
         throw new Error(payload.error || 'Failed to analyze profile')
       }
 
       setResultsData(payload)
       setShowResults(true)
+    } catch (err) {
+      throw err
     } finally {
       clearTimeout(stageTwoTimer)
       clearTimeout(stageThreeTimer)

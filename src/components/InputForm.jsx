@@ -11,6 +11,7 @@ export default function InputForm({ onSubmit, loading }) {
   const [resumeMode, setResumeMode] = useState(false)
   const [resumeFile, setResumeFile] = useState(null)
   const [dragOver, setDragOver] = useState(false)
+  const [error, setError] = useState(null)
   const fileInputRef = useRef(null)
 
   const junkPatterns = /^(none|n\/a|na|nothing|no skills|no skill|idk|i don't know|i dont know|null|undefined|-)$/i
@@ -53,6 +54,7 @@ export default function InputForm({ onSubmit, loading }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (isSubmitDisabled) return
+    setError(null)
 
     try {
       if (resumeMode) {
@@ -61,7 +63,7 @@ export default function InputForm({ onSubmit, loading }) {
         await onSubmit({ currentJob, dreamJob, skills })
       }
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Unable to generate roadmap')
+      setError(err instanceof Error ? err.message : 'Unable to generate roadmap')
     }
   }
 
@@ -267,6 +269,28 @@ export default function InputForm({ onSubmit, loading }) {
                          focus:border-indigo-500/50 transition-all duration-200"
             />
           </div>
+
+          {/* Error message */}
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="flex items-start gap-3 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-300 text-sm"
+              >
+                <span className="shrink-0 mt-0.5">&#x26A0;</span>
+                <span>{error}</span>
+                <button
+                  type="button"
+                  onClick={() => setError(null)}
+                  className="ml-auto shrink-0 text-red-300/60 hover:text-red-300 font-bold"
+                >
+                  &times;
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Submit */}
           <motion.button
