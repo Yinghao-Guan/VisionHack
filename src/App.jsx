@@ -43,8 +43,6 @@ function App() {
     }, 1600)
 
     try {
-      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || ''
-
       let response
       if (resumeFile) {
         const formData = new FormData()
@@ -52,9 +50,9 @@ function App() {
         formData.append('targetJob', dreamJob)
         formData.append('location', 'Los Angeles, CA')
         formData.append('resume', resumeFile)
-        response = await fetch(`${apiBaseUrl}/api/analyze`, { method: 'POST', body: formData })
+        response = await fetch('/api/analyze', { method: 'POST', body: formData })
       } else {
-        response = await fetch(`${apiBaseUrl}/api/analyze`, {
+        response = await fetch('/api/analyze', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ currentJob, skills, targetJob: dreamJob, location: 'Los Angeles, CA' }),
