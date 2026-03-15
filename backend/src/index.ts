@@ -29,7 +29,7 @@ app.post('/api/analyze', async (c) => {
         return c.json({ success: false, error: 'No resume file provided' }, 400)
       }
       const pdfBuffer = await resumeFile.arrayBuffer()
-      skills = await extractSkillsFromPdf(pdfBuffer)
+      skills = await extractSkillsFromPdf(pdfBuffer, targetJob)
 
       if (skills.length === 0) {
         return c.json({ success: false, error: 'Could not extract any skills from the resume' }, 422)

@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
-export async function extractSkillsFromPdf(pdfBuffer: ArrayBuffer): Promise<string[]> {
+export async function extractSkillsFromPdf(pdfBuffer: ArrayBuffer, targetJob: string): Promise<string[]> {
   const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey) throw new Error('GEMINI_API_KEY is not set')
 
@@ -16,7 +16,7 @@ export async function extractSkillsFromPdf(pdfBuffer: ArrayBuffer): Promise<stri
         data: base64,
       },
     },
-    'Extract all professional and technical skills from this resume. Return ONLY a JSON array of skill strings — no markdown, no explanation. Example: ["Python", "SQL", "Customer Service", "Excel"]',
+    `Extract skills from this resume and return the top 10 most relevant to the target job: "${targetJob}". Return ONLY a JSON array of up to 10 skill strings, ranked by relevance — no markdown, no explanation. Example: ["Python", "SQL", "Customer Service", "Excel"]`,
   ])
 
   let raw = result.response.text().trim()
