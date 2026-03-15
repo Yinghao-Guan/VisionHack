@@ -24,7 +24,7 @@ export function useScrollTrigger(animationFn, deps = []) {
 export function refreshScrollTrigger() {
   setTimeout(() => {
     ScrollTrigger.refresh()
-  }, 100)
+  }, 300)
 }
 
 export { gsap, ScrollTrigger }

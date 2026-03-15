@@ -21,7 +21,7 @@ function App() {
   const [stageMessage, setStageMessage] = useState('')
   const progressRef = useRef(null)
 
-  const handleFormSubmit = async ({ currentJob, dreamJob, skills }) => {
+  const handleFormSubmit = async ({ currentJob, dreamJob, skills, resumeFile }) => {
     setShowResults(false)
     setLoading(true)
     setProgress(stages[0].progress)
@@ -44,16 +44,22 @@ function App() {
 
     try {
       const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
-      const response = await fetch(`${apiBaseUrl}/api/analyze`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          currentJob,
-          skills,
-          targetJob: dreamJob,
-          location: 'Los Angeles, CA',
-        }),
-      })
+
+      let response
+      if (resumeFile) {
+        const formData = new FormData()
+        formData.append('currentJob', currentJob)
+        formData.append('targetJob', dreamJob)
+        formData.append('location', 'Los Angeles, CA')
+        formData.append('resume', resumeFile)
+        response = await fetch(`${apiBaseUrl}/api/analyze`, { method: 'POST', body: formData })
+      } else {
+        response = await fetch(`${apiBaseUrl}/api/analyze`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ currentJob, skills, targetJob: dreamJob, location: 'Los Angeles, CA' }),
+        })
+      }
 
       const payload = await response.json()
       if (!response.ok || !payload.success) {

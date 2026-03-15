@@ -4,6 +4,7 @@ import { serve } from '@hono/node-server'
 import { fetchJobs } from './services/jobs.js'
 import { analyzeWithGemini } from './services/llm.js'
 import { buildPrompt } from './utils/prompt.js'
+import { extractSkillsFromPdf } from './utils/extractSkills.js'
 
 const app = new Hono()
 
@@ -13,13 +14,37 @@ app.get('/', (c) => c.json({ ok: true, message: 'SkillMatch backend running' }))
 
 app.post('/api/analyze', async (c) => {
   try {
-    const { currentJob, skills, targetJob, location } = await c.req.json()
+    let currentJob: string, targetJob: string, resolvedLocation: string, skills: string[]
+
+    const contentType = c.req.header('content-type') ?? ''
+
+    if (contentType.includes('multipart/form-data')) {
+      const formData = await c.req.formData()
+      currentJob = (formData.get('currentJob') as string) ?? ''
+      targetJob = (formData.get('targetJob') as string) ?? ''
+      resolvedLocation = (formData.get('location') as string) || 'Los Angeles, CA'
+
+      const resumeFile = formData.get('resume') as File | null
+      if (!resumeFile) {
+        return c.json({ success: false, error: 'No resume file provided' }, 400)
+      }
+      const pdfBuffer = await resumeFile.arrayBuffer()
+      skills = await extractSkillsFromPdf(pdfBuffer, targetJob)
+
+      if (skills.length === 0) {
+        return c.json({ success: false, error: 'Could not extract any skills from the resume' }, 422)
+      }
+    } else {
+      const body = await c.req.json()
+      currentJob = body.currentJob ?? ''
+      targetJob = body.targetJob ?? ''
+      resolvedLocation = body.location || 'Los Angeles, CA'
+      skills = body.skills
+    }
 
     if (!currentJob || !Array.isArray(skills) || skills.length === 0 || !targetJob) {
       return c.json({ success: false, error: 'Missing required fields: currentJob, skills, targetJob' }, 400)
     }
-
-    const resolvedLocation = location || 'Los Angeles, CA'
     const jobs = await getJobsWithFallback(targetJob, resolvedLocation)
 
     const prompt = buildPrompt({ currentJob, skills, targetJob, location: resolvedLocation }, jobs)
