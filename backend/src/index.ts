@@ -42,8 +42,15 @@ app.post('/api/analyze', async (c) => {
       skills = body.skills
     }
 
-    if (!currentJob || !Array.isArray(skills) || skills.length === 0 || !targetJob) {
+    if (!currentJob || !targetJob) {
       return c.json({ success: false, error: 'Missing required fields: currentJob, skills, targetJob' }, 400)
+    }
+    if (!Array.isArray(skills)) {
+      return c.json({ success: false, error: 'Missing required fields: currentJob, skills, targetJob' }, 400)
+    }
+    skills = filterJunkSkills(skills)
+    if (skills.length === 0) {
+      return c.json({ success: false, error: 'Please enter at least one real skill (e.g. Excel, Customer Service, Python)' }, 400)
     }
     const jobs = await getJobsWithFallback(targetJob, resolvedLocation)
 
@@ -196,6 +203,14 @@ async function getJobsWithFallback(targetJob: string, location: string) {
       salary: 'Salary not listed',
     },
   ]
+}
+
+function filterJunkSkills(skills: string[]): string[] {
+  const junkPatterns = /^(none|n\/a|na|nothing|no skills|no skill|idk|i don't know|i dont know|null|undefined|-)$/i
+  return skills.filter((s) => {
+    const trimmed = s.trim()
+    return trimmed.length > 0 && !junkPatterns.test(trimmed)
+  })
 }
 
 function isJSearchForbiddenError(message: string): boolean {

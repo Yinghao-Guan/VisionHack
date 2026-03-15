@@ -13,12 +13,14 @@ export default function InputForm({ onSubmit, loading }) {
   const [dragOver, setDragOver] = useState(false)
   const fileInputRef = useRef(null)
 
+  const junkPatterns = /^(none|n\/a|na|nothing|no skills|no skill|idk|i don't know|i dont know|null|undefined|-)$/i
+
   const addSkill = () => {
     const trimmed = skillInput.trim()
-    if (trimmed && !skills.includes(trimmed)) {
+    if (trimmed && !skills.includes(trimmed) && !junkPatterns.test(trimmed)) {
       setSkills([...skills, trimmed])
-      setSkillInput('')
     }
+    setSkillInput('')
   }
 
   const removeSkill = (skill) => {
