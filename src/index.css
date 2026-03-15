@@ -112,3 +112,126 @@ body {
 .glow-indigo {
   box-shadow: 0 0 40px rgba(99, 102, 241, 0.15), 0 0 80px rgba(99, 102, 241, 0.05);
 }
+
+/* ---- Results Unified Background ---- */
+.results-bg {
+  background: linear-gradient(
+    -45deg,
+    #050510,
+    #0a0a1a,
+    #0f0d2e,
+    #0a0a1a,
+    #0d0d24,
+    #050510
+  );
+  background-size: 400% 400%;
+  animation: resultsGradientFlow 20s ease infinite;
+}
+
+@keyframes resultsGradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---- Section Fade Transitions (replaces WaveDividers) ---- */
+.section-fade-top {
+  background: linear-gradient(to bottom, rgba(5, 5, 16, 0.6), transparent);
+  pointer-events: none;
+}
+
+.section-fade-bottom {
+  background: linear-gradient(to top, rgba(5, 5, 16, 0.6), transparent);
+  pointer-events: none;
+}
+
+/* ---- Gradient Border Card ---- */
+.gradient-border {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid transparent;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #6366f1, #a78bfa, #818cf8);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Gradient border glow on hover */
+.gradient-border-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.gradient-border-glow:hover {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.15), 0 0 40px rgba(99, 102, 241, 0.05);
+}
+
+.gradient-border-glow:hover::before {
+  background: linear-gradient(135deg, #818cf8, #c4b5fd, #a78bfa);
+}
+
+/* Gradient border that appears only on hover */
+.gradient-border-hover {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.gradient-border-hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #6366f1, #a78bfa, #818cf8);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gradient-border-hover:hover::before {
+  opacity: 1;
+}
+
+.gradient-border-hover:hover {
+  border-color: transparent;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+}
+
+/* ---- Skill Proficiency Bars ---- */
+.skill-bar-bg {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  height: 0.5rem;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+/* ---- Circular Progress Ring ---- */
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+/* ---- Tab Active Underline ---- */
+.tab-underline {
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #a78bfa);
+  border-radius: 1px;
+}

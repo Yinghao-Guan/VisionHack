@@ -2,25 +2,38 @@ import SkillGap from './SkillGap'
 import Roadmap from './Roadmap'
 import Resources from './Resources'
 import JobPostings from './JobPostings'
-import WaveDivider from './WaveDivider'
 
 export default function Results({ data }) {
+  const userSkills = data.skillGap.have.map((s) => s.name)
+
   return (
     <div>
-      <WaveDivider fillTop="#111827" fillBottom="#0a0a0f" />
       <SkillGap data={data.skillGap} />
-      <WaveDivider fillTop="#0a0a0f" fillBottom="#111827" />
-      <Roadmap
-        data={{
-          ...data.roadmap,
-          currentRole: data.currentRole,
-          dreamRole: data.dreamRole,
-        }}
-      />
-      <WaveDivider fillTop="#111827" fillBottom="#0a0a0f" />
-      <Resources data={data.resources} />
-      <WaveDivider fillTop="#0a0a0f" fillBottom="#111827" />
-      <JobPostings data={data.jobPostings} />
+
+        {/* Section divider */}
+        <div className="flex items-center justify-center h-16">
+          <div className="h-px w-40 bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
+        </div>
+
+        <Roadmap
+          data={{
+            ...data.roadmap,
+            currentRole: data.currentRole,
+            dreamRole: data.dreamRole,
+          }}
+        />
+
+        <div className="flex items-center justify-center h-16">
+          <div className="h-px w-40 bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
+        </div>
+
+        <Resources data={data.resources} />
+
+        <div className="flex items-center justify-center h-16">
+          <div className="h-px w-40 bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
+        </div>
+
+        <JobPostings data={data.jobPostings} userSkills={userSkills} />
     </div>
   )
 }

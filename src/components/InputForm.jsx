@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import SectionWrapper from './SectionWrapper'
 import BlurText from './BlurText'
-import DarkVeil from './DarkVeil'
 
 export default function InputForm({ onSubmit, loading }) {
   const [currentJob, setCurrentJob] = useState('')
@@ -42,10 +41,6 @@ export default function InputForm({ onSubmit, loading }) {
 
   return (
     <SectionWrapper id="input-form" className="relative overflow-hidden min-h-screen flex items-center">
-      {/* DarkVeil Background */}
-      <div className="absolute inset-0">
-        <DarkVeil />
-      </div>
       {/* Top gradient to blend seamlessly with Hero section */}
       <div className="absolute top-0 left-0 right-0 h-40 z-[1] pointer-events-none"
            style={{ background: 'linear-gradient(to bottom, #111827, transparent)' }} />

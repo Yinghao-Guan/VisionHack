@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Hero from './components/Hero'
 import InputForm from './components/InputForm'
+import DarkVeil from './components/DarkVeil'
 import AnalysisProgress from './components/AnalysisProgress'
 import Results from './components/Results'
 import { refreshScrollTrigger } from './hooks/useScrollTrigger'
@@ -77,32 +78,44 @@ function App() {
   return (
     <div className="min-h-screen bg-cream">
       <Hero />
-      <InputForm onSubmit={handleFormSubmit} loading={loading} />
 
-      <AnimatePresence>
-        {loading && (
-          <motion.div
-            ref={progressRef}
-            key="progress"
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <AnalysisProgress progress={progress} stage={stageMessage} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Everything after Hero shares a sticky DarkVeil background */}
+      <div className="relative">
+        {/* Sticky DarkVeil — stays fixed on screen while scrolling through form + results */}
+        <div className="sticky top-0 h-screen -mb-[100vh] z-0 pointer-events-none">
+          <DarkVeil />
+        </div>
 
-      <AnimatePresence>
-        {showResults && (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-          >
-            <Results data={resultsData} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* Content sits on top of DarkVeil */}
+        <div className="relative z-[1]">
+          <InputForm onSubmit={handleFormSubmit} loading={loading} />
+
+          <AnimatePresence>
+            {loading && (
+              <motion.div
+                ref={progressRef}
+                key="progress"
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <AnalysisProgress progress={progress} stage={stageMessage} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {showResults && (
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+              >
+                <Results data={resultsData} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   )
 }
